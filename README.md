@@ -1,8 +1,10 @@
-Project was started using yo
+## Introduction
+
+This is a sample project built using the `Yeoman` stack. The project was started using yo, the scaffolding tool.
 
 	yo backbone jQueryDataTablesGrunt
 
-The following bower.json file was generated
+The following bower.json is generated as a result of the `yo` command.
 
 	{
 	"name": "jquerydatatablesgrunt",
@@ -19,7 +21,12 @@ The following bower.json file was generated
 	"devDependencies": {}
 	}
 
-Next thing we need to do is install the datatables dependency.
+
+## Application dependencies
+
+As you can see 'yo' already included libraries such as Twitter Bootstrap (the sass port) and jQuery.
+
+Next thing we need to do is install the datatables dependency. jQuery datatables is available through bower, and we can install the dependency in our app and update the bower.json file at the same time using the command below:
 
 	bower install datatables --save
 
@@ -66,7 +73,7 @@ After all of this, your bower.json will look like this:
 	}
 
 
-Another dependency we need is the datatables bootstrap
+Another dependency we need is the datatables bootstrap3 extension. This is a modified version of jQuery Datatables that plays nice with Twitter Bootstrap 3.
 
 For that we need to have the following dependency declred in our dependencies section:
 
@@ -76,16 +83,8 @@ This can be done by executing
 
 	bower install datatables-bootstrap3=git@github.com:Jowin/Datatables-Bootstrap3.git --save
 
-If all goes well you should see the following output
 
-
-	bower datatables-bootstrap3#*   cached git@github.com:Jowin/Datatables-Bootstrap3.git#7867c2ac15
-	bower datatables-bootstrap3#* validate 7867c2ac15 against git@github.com:Jowin/Datatables-Bootstrap3.git#*
-	bower datatables-bootstrap3#*  install datatables-bootstrap3#7867c2ac15
-
-	datatables-bootstrap3#7867c2ac15 app/bower_components/datatables-bootstrap3
-
-And your bower.json file should look like this:
+After that command the  datatables bootstrap3 extension will be added to your bower.json file and it should look like this:
 
 	{
 	  "name": "jquerydatatablesgrunt",
@@ -104,8 +103,9 @@ And your bower.json file should look like this:
 	  "devDependencies": {}
 	}
 
-
 Notice how the datatables-bootstrap3 was added with the github url
+
+## RequireJS configuration
 
 Now that we have all of our libraries downloaded and install, we can configure them in RequireJS (our main.js)
 
@@ -123,9 +123,129 @@ We'll need to include a shim config for the datatables-bootstrap3 library so tha
 	    }
 	});
 
+## RequireJS bootstrap
+
+Our `main.js` requires `app.js` to be loaded. It then proceeds to initialize our application.
+
+	require([
+	    'app'
+	], function (App) {
+	    App.initialize();
+	});
 
 
-#JST Templates
+## Bootstrap application
+
+Our application, `app.js` simply prepares a Router object that is initialized upon app initialization.
+
+	define([
+	  'jquery',
+	  'underscore',
+	  'backbone',
+	  'routes/router',
+	  'datatablesBootstrap3',
+	], function($, _, Backbone, Router,i18n,DatatablesBootstrap3){
+
+	    var initialize = function(){
+			Router.initialize();
+		}
+
+	  	return {
+	    	initialize: initialize
+	  	};
+	});
+
+## Bootstrap router
+
+Our bootstrap router defines the actual router, and allows it to be initialized. In this simple router, we expose a single route callled `blogs`. This means when we target our browser to http://localhost:9000/#blogs, the `blogListView.render();` will be executed.
+
+
+	define([
+	    'jquery',
+	    'backbone',
+	    'views/blog',
+	], function ($, Backbone,BlogListView) {
+	    'use strict';
+
+	    var BlogRouter = Backbone.Router.extend({
+	        routes: {
+	        	 "blogs" : "viewBlogs"
+	        }
+	    });
+
+	    var blogListView = new BlogListView();
+		
+	    var initialize = function(){
+
+	    	var router = new BlogRouter;
+	    
+		    router.on('route:viewBlogs', function(){
+		    	blogListView.render();
+		    });
+
+	        console.log("Router intialized")
+		    Backbone.history.start();
+
+		    return router;
+		};
+
+	  	return {
+	    	initialize: initialize
+	  	};
+	});
+
+So we have a main -> app -> router dependency chain.
+
+## Bootstrap view
+
+The Bootstrap view is very simple and renders 100 blog objects into a table.
+Here we're using the jQuery DataTables extenson to set some properties on the table.
+
+	define([
+	    'jquery',
+	    'underscore',
+	    'backbone',
+	    'templates'
+	], function ($, _, Backbone, JST) {
+	    'use strict';
+
+	    var BlogListView = Backbone.View.extend({
+	        template: JST['app/scripts/templates/blogs.html'],
+
+			el: $('.page'),
+
+	        render: function(){
+
+	            var blogs = [];
+	            for (var i=1 ; i<=100 ; i++) {
+	                blogs.push({title:"title " + i,content:"content" + i});
+	            }
+
+	            this.$el.html(this.template({ blogs: blogs }));
+
+	            var table = $('#blog-list-datatable').dataTable( {
+	                "bLengthChange":false,
+	                "aoColumns": [
+	                    null,
+	                    null
+	                ]
+	                    
+	            } );
+
+	            if (table.length>0) {
+	                table.fnSort( [ [0,'asc'] ] );
+	            }            
+	        }
+
+	    });
+
+
+
+	    return BlogListView;
+	});
+
+
+##JST Templates
 
 We're going to store our HTML templates (underscore templates) in the `<%= yeoman.app %>/scripts/templates` folder, so update the `Gruntfile.js` accordingly.
 
@@ -149,3 +269,6 @@ and
             }
         }            
 
+#References
+
+https://datatables.net/
