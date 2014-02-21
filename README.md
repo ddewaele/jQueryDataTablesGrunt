@@ -12,17 +12,9 @@ The goal was to setup a project using the following technology stack
 
 ## Current issues
 
--  Not all CSS files are picked up when running `grunt:serve`
-
-[GruntJS CSS handling : How to select CSS files and how to package them](http://stackoverflow.com/questions/21941097/gruntjs-css-handling-how-to-select-css-files-and-how-to-package-them)
-
 - When running the requireJS optimizer, the jQuery Datatables don't work anymore due to a javascript error
 
 ![Running grunt serve:dist](https://dl.dropboxusercontent.com/u/13246619/GithubScreenshots/Grunt/grunt-serve-dist.png)
-
-- When running without the requireJS optimizer, the jQuery Datatables work, but no jQuery Datatables CSS elements are added to main.css.
-
-![Running grunt serve:dist](https://dl.dropboxusercontent.com/u/13246619/GithubScreenshots/Grunt/grunt-serve.png) 
 
 ## Yo scaffolding
 
