@@ -1,0 +1,16 @@
+{
+  "name": "jquerydatatablesgrunt",
+  "version": "0.0.0",
+  "dependencies": {
+    "sass-bootstrap": "~3.0.0",
+    "jquery": "~1.9.0",
+    "underscore": "~1.4.3",
+    "backbone": "~1.0.0",
+    "requirejs": "~2.1.5",
+    "requirejs-text": "~2.0.5",
+    "modernizr": "~2.6.2",
+    "datatables": "~1.9.4",
+    "datatables-bootstrap3": "git@github.com:Jowin/Datatables-Bootstrap3.git"
+  },
+  "devDependencies": {}
+}
