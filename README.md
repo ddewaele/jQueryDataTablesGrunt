@@ -10,6 +10,15 @@ The goal was to setup a project using the following technology stack
 - RequireJS
 - GruntJS
 
+![](https://dl.dropboxusercontent.com/u/13246619/GithubScreenshots/Grunt/working.png)
+
+The idea was to not only put in place the project structure (thank you `yeoman`) but also to 
+
+- start adding some Backbone infrastructure (router,view)
+- setup some templating
+- start working with an external library (datatables)
+- add custom javascript / css to the project.
+
 ## Current issues
 
 - When running the requireJS optimizer, the jQuery Datatables don't work anymore due to a javascript error
@@ -42,7 +51,7 @@ The following bower.json is generated as a result of the `yo` command.
 
 ## Application dependencies
 
-As you can see 'yo' already included libraries such as Twitter Bootstrap (the sass port) and jQuery.
+As you can see `yo` already included libraries such as Twitter Bootstrap (the sass port) and jQuery.
 
 Next thing we need to do is install the datatables dependency. jQuery datatables is available through bower, and we can install the dependency in our app and update the bower.json file at the same time using the command below:
 
