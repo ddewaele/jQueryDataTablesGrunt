@@ -5,7 +5,7 @@ define([
   'backbone',
   'routes/router',
   'datatablesBootstrap3',
-], function($, _, Backbone, Router,i18n,DatatablesBootstrap3){
+], function($, _, Backbone, Router,i18n){
 
     var initialize = function(){
 		Router.initialize();

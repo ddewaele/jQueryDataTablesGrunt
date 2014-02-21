@@ -16,11 +16,7 @@ require.config({
         bootstrap: {
             deps: ['jquery'],
             exports: 'jquery'
-        },
-        datatablesBootstrap3: {
-            deps: ['datatables']
-        } 
-
+        }
     },
     paths: {
         jquery: '../bower_components/jquery/jquery',
