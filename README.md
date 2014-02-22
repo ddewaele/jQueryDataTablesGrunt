@@ -25,6 +25,17 @@ The idea was to not only put in place the project structure (thank you `yeoman`)
 
 ![Running grunt serve:dist](https://dl.dropboxusercontent.com/u/13246619/GithubScreenshots/Grunt/grunt-serve-dist.png)
 
+
+The error 
+
+	Uncaught TypeError: Cannot read property 'defaults' of undefined 
+
+I'm guessing the error comes from
+
+	DataTable.defaults={aaData:null,aaSorting:[[0,"asc"]]
+
+See [Issue 1](https://github.com/ddewaele/jQueryDataTablesGrunt/issues/1) for more info.		
+
 ## Yo scaffolding
 
 The project was started using yo, the scaffolding tool.
@@ -347,3 +358,6 @@ and
 #References
 
 https://datatables.net/
+https://github.com/yeoman/grunt-usemin
+http://sass-lang.com/
+http://gruntjs.com/configuring-tasks
